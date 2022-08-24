@@ -1,0 +1,120 @@
+#include "External_list.h"
+
+
+void External_list::insert(string category, int id, string nombre, int precio, string src) {
+
+   
+    if (head == NULL)
+    {
+        External_node* new_node = new External_node(category);
+        new_node->internal_list.insert(id,nombre, precio, src);
+        head = new_node;
+        bottom = new_node;
+        ++quantity;
+    }
+    else
+    {
+        if (check_category(head, category) == NULL) 
+        {
+            if (check_id(id)) 
+            {
+                External_node* new_node = new External_node(category);
+                new_node->internal_list.insert(id, nombre, precio, src);
+                bottom->next = new_node;
+                bottom = new_node;
+                ++quantity;
+            }
+            else 
+            {
+                cout << "1. The Id is in use\n";
+            }
+        }
+        else 
+        
+            if (check_id(id))
+            {
+            check_category(head, category)->internal_list.insert(id, nombre, precio, src);
+            }
+            else 
+            {
+                cout << "2. The Id is in use\n";
+            }
+        
+    }
+
+}
+
+//Checking the category of the node
+External_node* External_list::check_category(External_node* external_node, string category) {
+    int iterator = 0;
+	if (external_node == NULL) {
+		return external_node;
+	}
+	else 
+    {
+        External_node* aux = external_node;
+        while (aux != NULL) {
+            if (aux->category == category) {
+                break;
+            }
+            aux = aux->next;
+            ++iterator;
+        }
+        return aux;
+	}
+}
+
+//Checking if the id is in use
+bool External_list::check_id(int _id) {
+    bool test = true;
+    int iterator = 0;
+    External_node* aux = head;
+    if (head != NULL) 
+    {
+        while (iterator != quantity) 
+        {
+            if (!(aux->internal_list.check_id(_id))) {
+                return false;
+            }
+            aux = aux->next;
+            ++iterator;
+        }
+        return true;
+    }
+    else {
+        return true;
+    }
+  
+}
+
+void External_list::show() {
+    External_node* aux = head;
+    int iterator = 0;
+    if (quantity > 0) {
+        while (iterator != quantity) {
+            aux->internal_list.show(aux->category);
+            ++iterator;
+            aux = aux->next;
+        }
+    }
+    else {
+        cout << "The list of lists is empty";
+    }
+
+}
+
+void External_list::show_category() {
+    External_node* aux = head;
+    int iterator = 0;
+    if (quantity > 0) {
+        while (iterator != quantity) {
+            cout <<"\n" <<aux->category<<"\n";
+            ++iterator;
+            aux = aux->next;
+        }
+    }
+    else {
+        cout << "The list of lists is empty";
+    }
+
+}

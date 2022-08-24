@@ -18,5 +18,6 @@ public:
 	void erase(string value);
 	bool login(string user, string pass);
 	int get_quantity();
+	int get_points(string user);
 private:
 };

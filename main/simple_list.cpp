@@ -261,3 +261,20 @@ int simple_list::get_quantity() {
 	return quantity;
 }
 
+int simple_list::get_points(string user) {
+	simple_node* aux = head;
+	int iterator = 0;
+	int new_value;
+
+
+	while (iterator != quantity)
+	{
+		if (aux->nick == user)
+		{
+			return aux->monedas;
+		}
+		aux = aux->next;
+		++iterator;
+	}
+}
+

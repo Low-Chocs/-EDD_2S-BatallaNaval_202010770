@@ -127,13 +127,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="External_list.cpp" />
+    <ClCompile Include="External_node.cpp" />
+    <ClCompile Include="Internal_list.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="simple_list.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="External_list.h" />
+    <ClInclude Include="External_node.h" />
     <ClInclude Include="Header.h" />
+    <ClInclude Include="Internal_node.h" />
+    <ClInclude Include="Internal_list.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="simple_list.h" />

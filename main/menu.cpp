@@ -1,7 +1,9 @@
 #include "Header.h"
 #include"simple_list.h"
+#include"External_list.h"
 
 simple_list user_list;
+External_list store_list;
 
 void menu() {
 	int option;
@@ -11,7 +13,18 @@ void menu() {
 	int age;
 	string user;
 	string pass;
-
+	store_list.insert("Especial", 25, "Nombre", 2000, "Holaaaa");
+	store_list.insert("Especial", 21, "Nombre", 2000, "Holaaaa");
+	store_list.insert("Legendary", 22, "Nombre", 2000, "Holaaaa");
+	store_list.insert("Legendary", 22, "Nombre", 2000, "Holaaaa");
+	store_list.insert("Legendary", 22, "Nombre", 2000, "Holaaaa");
+	store_list.insert("Epic", 20, "Nombre", 2000, "Holaaaa");
+	store_list.show();
+	
+	user_list.insert("Mariano", "Moreira", 0, 14);
+	user_list.insert("Juan", "Moreira", 0, 14);
+	user_list.insert("Jason", "Moreira", 0, 14);
+	user_list.show();
 	do {
 		cout << "\nMenu\n1. Carga masiva \n2. Registrar Usuario \n3. Login\n4. Reportes \n5. Salir \n";
 		cin >> option;
@@ -68,6 +81,7 @@ void menu() {
 void log_menu(string user) {
 	int option;
 	int quantity_aux;
+	int option2;
 
 	do {
 		cout << "\nBienvenido: " << user;
@@ -94,8 +108,13 @@ void log_menu(string user) {
 			cout << "Ver el tutorial\n";
 			continue;
 		case 4:
-			cout << "Ver las skins de la tienda\n";
-			continue;
+			cout << user << " Tienes un total de: " << user_list.get_points(user)<< " para gastar\n";
+			store_list.show();
+			cout << "\nPulse 1 para volver: ";
+			cin >> option2;
+			if (option == 1) {
+				continue;
+			}
 		case 5:
 			cout << "Realizar movimientos, finalizar partida\n";
 			continue;

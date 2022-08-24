@@ -20,6 +20,5 @@ public:
 		password = _password;
 		monedas = _monedas;
 		edad = _age;
-
 	}
 };
