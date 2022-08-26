@@ -1,0 +1,33 @@
+digraph G {
+label="Lista doblemente enlazada circular";
+node [shape=box];
+//agregar nodos
+NFolagor[fontsize="10pt" label="nick: Folagor
+password: alfal475
+coins: 35
+age: 24"];
+NPlanton[fontsize="10pt" label="nick: Planton
+password: cam78dad
+coins: 15
+age: 15"];
+NPikachu[fontsize="10pt" label="nick: Pikachu
+password: beliz5a4
+coins: 40
+age: 19"];
+NNaruto[fontsize="10pt" label="nick: Naruto
+password: jfagaga16a
+coins: 150
+age: 32"];
+NGoku[fontsize="10pt" label="nick: Goku
+password: agga516r
+coins: 700
+age: 170"];
+NHomero[fontsize="10pt" label="nick: Homero
+password: agfa84aafg8
+coins: 10
+age: 16"];
+//Enlazar imagenes
+{rank=same;
+NFolagor->NPlanton->NPikachu->NNaruto->NGoku->NHomero
+NHomero->NGoku->NNaruto->NPikachu->NPlanton->NFolagor NHomero->NFolagor NFolagor->NHomero}
+}

@@ -1,6 +1,12 @@
 #include "simple_list.h"
-
+#include<string>
+#include<iostream>
+#include<fstream>
+#include <windows.h>
+#include <sstream>
+#include"Sorted_list.h"
 using namespace std;
+Sorted_list sorted_list2;
 
 void simple_list::insert(string nick, string password, int coins, int age) {
 
@@ -36,6 +42,7 @@ void simple_list::insert(string nick, string password, int coins, int age) {
 			aux->next->back = aux;
 			bottom = new_node;
 			new_node->next = head;
+			head->back = bottom;
 			++quantity;
 		}
 		else {
@@ -61,12 +68,52 @@ void simple_list::insert(string nick, string password, int coins, int age) {
 					bottom->nick = nick;
 					new_node->next = head;
 					++quantity;
+					head->back = bottom;
 				
 				}
 				iterator = 0;
 
 			} while (state == false);
 		}
+	}
+}
+void simple_list::insert2(string nick, string password, int coins, int age) {
+
+	simple_node* new_node = new simple_node(nick, password, coins, age);
+	int iterator = 0;
+	bool state = true;
+
+	//Add in the header
+	if (head == NULL)
+	{
+		head = new_node;
+		bottom = new_node;
+		head->next = bottom;
+		bottom->back = head;
+		++quantity;
+	}
+	else if (quantity > 0) {
+		simple_node* aux = head;
+		//Verifies that the nick is not in usage
+		while (iterator != quantity) {
+			if (new_node->nick == aux->nick) {
+				state = false;
+				iterator = 0;
+				break;
+			}
+			++iterator;
+			aux = aux->next;
+		}
+		//If nick is not in usage it is added
+		if (state) {
+			simple_node* aux = bottom;
+			aux->next = new_node;
+			aux->next->back = aux;
+			bottom = new_node;
+			new_node->next = head;
+			++quantity;
+			head->back = bottom;
+		}	
 	}
 }
 
@@ -264,7 +311,6 @@ int simple_list::get_quantity() {
 int simple_list::get_points(string user) {
 	simple_node* aux = head;
 	int iterator = 0;
-	int new_value;
 
 
 	while (iterator != quantity)
@@ -277,4 +323,91 @@ int simple_list::get_points(string user) {
 		++iterator;
 	}
 }
+
+void simple_list::set_points(string user) {
+	simple_node* aux = head;
+	int iterator = 0;
+
+
+	while (iterator != quantity)
+	{
+		if (aux->nick == user)
+		{
+			++aux->monedas;
+		}
+		aux = aux->next;
+		++iterator;
+	}
+}
+void simple_list::simple_list_graph() {
+
+		string dot = "";
+		dot = dot + "digraph G {\n";
+		dot = dot + "label=\"Lista doblemente enlazada circular\";\n";
+		dot = dot + "node [shape=box];\n";
+		cout << "Llegue hasta aqui 1\n";
+
+
+		simple_node* aux = head;
+		int iterator = 0;
+		dot = dot + "//agregar nodos\n";
+		while (iterator != quantity) {
+			
+			dot = dot + "N" + aux->nick + "[fontsize=\"10pt\" label=\"" + "nick: "+ aux->nick + "\npassword: " + aux->password + "\ncoins: " + to_string(aux->monedas) + "\nage: " + to_string(aux->edad) + "\"];\n";
+			aux = aux->next;
+			++iterator;
+		}
+		cout << "Llegue hasta aqui 2\n";
+		dot = dot + "//Enlazar imagenes\n";
+		dot = dot + "{rank=same;\n";
+		aux = head;
+		iterator = 0;
+		while (iterator != quantity) {
+
+			dot = dot + "N" + aux->nick;
+			if (aux != bottom) {
+				dot = dot + "->";
+			}
+			
+			aux = aux->next;
+			++iterator;
+		}
+		dot += "\n";
+		aux = bottom;
+		iterator = 0;
+		while (iterator != quantity) {
+
+			dot = dot + "N" + aux->nick;
+			if (aux != head) {
+				dot = dot + "->";
+			}
+
+			aux = aux->back;
+			++iterator;
+		}
+		dot = dot + " N" + bottom->nick +"->" +"N"+ head->nick;
+		dot = dot + " N" + head->nick + "->" + "N" + bottom->nick;
+		dot = dot + "}\n";
+		dot = dot + "}\n";
+
+		cout << dot;
+
+		//------->escribir archivo
+		cout << "Llegue hasta aqui";
+		ofstream file;
+		
+		file.open("Pruebas.dot");
+		file << dot;
+		file.close();
+
+		//------->generar png
+		system(("dot -Tpng Pruebas.dot -o  Pruebas.png"));
+
+		//------>abrir archivo
+		system(("Pruebas.png"));
+
+	}
+
+
+
 

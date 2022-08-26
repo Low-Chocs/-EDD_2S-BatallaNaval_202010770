@@ -15,14 +15,15 @@ public:
 		bottom = NULL;
 		quantity = 0;
 	}
-	void insert(string category, int id, string nombre, int precio, string src);
+	void insert(string category, string id, string nombre, int precio, string src);
 	void show();
 	void show_category();
 	void edit(string value);
 	void erase(string value);
 	bool login(string user, string pass);
 	int get_quantity();
-	bool check_id(int id);
+	bool check_id(string id);
+	void list_list_graph();
 	External_node * check_category(External_node*external_node, string category);
 private:
 };

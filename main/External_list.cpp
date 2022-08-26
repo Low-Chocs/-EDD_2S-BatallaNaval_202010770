@@ -1,7 +1,9 @@
 #include "External_list.h"
+#include"Sorted_list.h"
+Sorted_list sorted_list;
 
 
-void External_list::insert(string category, int id, string nombre, int precio, string src) {
+void External_list::insert(string category, string id, string nombre, int precio, string src) {
 
    
     if (head == NULL)
@@ -65,7 +67,7 @@ External_node* External_list::check_category(External_node* external_node, strin
 }
 
 //Checking if the id is in use
-bool External_list::check_id(int _id) {
+bool External_list::check_id(string _id) {
     bool test = true;
     int iterator = 0;
     External_node* aux = head;
@@ -116,5 +118,60 @@ void External_list::show_category() {
     else {
         cout << "The list of lists is empty";
     }
+
+}
+
+void External_list::list_list_graph() {
+    int iterator;
+
+    string dot = "";
+    dot = dot + "digraph G {\n";
+    dot = dot + "label=\"Lista de listas\";\n";
+    dot = dot + "nodesep=.05;\n";
+    dot += "\trankdir=LR;\n";
+    dot += "node[shape=record,width=.1,height=.1];\n";
+    dot += "node0[label = \"";
+    iterator = 0;
+    External_node* aux = head;
+    while (iterator != quantity-1) {
+        dot += "<f" + to_string(iterator) +">"+aux->category + "|";
+        aux = aux ->next;
+        ++iterator;
+
+    }
+    dot += "<f" + to_string(iterator) + ">"+bottom->category;
+    dot += "\",height = 2.5];\n";
+    dot += "node [width = 1.5];\n";
+
+    iterator = 0;
+    int iterator2 = 0;
+    aux = head;
+    
+    while (iterator2 != quantity) {
+        dot += "node"+to_string(iterator2+1)+"[label = \"{";
+        while (iterator != aux->internal_list.get_quantity()-1) {
+            dot += "<f" + to_string(iterator) +">"+ aux->internal_list.get_name(iterator)+"| ";
+            ++iterator;
+        }
+        iterator=0;
+        dot += aux->internal_list.get_name(iterator)+"}\"];\n";
+        dot += "node0:f"+to_string(iterator2)+"->node"+ to_string(iterator2+1) +":n; \n";
+        ++iterator2;
+        aux = aux->next;
+    }
+    dot += "}";
+    //------->escribir archivo
+ 
+    ofstream file;
+
+    file.open("Pruebas2.dot");
+    file << dot;
+    file.close();
+
+    //------->generar png
+    system(("dot -Tpng Pruebas2.dot -o  Pruebas2.png"));
+
+    //------>abrir archivo
+    system(("Pruebas2.png"));
 
 }

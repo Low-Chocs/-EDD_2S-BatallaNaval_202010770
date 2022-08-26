@@ -6,13 +6,13 @@ using namespace std;
 class internal_node {
 public:
 	internal_node* next;
-	int id;
+	string id;
 	int precio;
 	string nombre;
 	string src;
 
 
-	internal_node(int _id, string _nombre, int _precio, string _src) {
+	internal_node(string _id, string _nombre, int _precio, string _src) {
 		next = NULL;
 		id = _id;
 		nombre = _nombre;

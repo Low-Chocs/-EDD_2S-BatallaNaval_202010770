@@ -1,0 +1,10 @@
+digraph G {
+label="Lista de listas";
+nodesep=.05;
+	rankdir=LR;
+node[shape=record,width=.1,height=.1];
+node0[label = "<f0>Juanito",height = 2.5];
+node [width = 1.5];
+node1[label = "{<f0>5,5| <f1>4,4| 5,5}"];
+node0:f0->node1:n; 
+}

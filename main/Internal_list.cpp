@@ -2,7 +2,7 @@
 #include"Internal_node.h"
 using namespace std;
 
-void internal_list::insert(int id, string nombre, int precio, string src) {
+void internal_list::insert(string id, string nombre, int precio, string src) {
 	//The new node is created but not added to the list
 	internal_node* new_node = new internal_node(id, nombre, precio, src);
 
@@ -31,7 +31,7 @@ void internal_list::show(string category){
 	}
 }
 //Checking the id
-bool internal_list::check_id(int _id) {
+bool internal_list::check_id(string _id) {
 	internal_node* aux = head;
 	int iterator = 0;
 	//Checking inside the list if the id is in use
@@ -43,4 +43,18 @@ bool internal_list::check_id(int _id) {
 		++iterator;
 	}
 	return true;
+}
+
+int internal_list::get_quantity() {
+	return quantity;
+}
+
+string internal_list::get_name(int number) {
+	int iterator = 0;
+	internal_node* aux = head;
+	while (iterator != number) {
+		++iterator;
+		aux = aux->next;
+	}
+	return aux->nombre;
 }
